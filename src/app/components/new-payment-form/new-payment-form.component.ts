@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { PaymentsService } from 'src/app/services/payments.service';
 
 @Component({
@@ -21,13 +20,16 @@ export class NewPaymentFormComponent implements OnInit, AfterViewInit {
     })
    }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   addPayment(): void{
     if (this.newPaymentForm.valid) {
-      let value = this.newPaymentForm.value;
-      this.paymentsService.addToPayments(value);
+      const value = this.newPaymentForm.value;
+      const currentPayments=this.paymentsService.payments$.getValue();
+
+      const newPayment = {name: value.payment, cost: value.cost , months: []};
+      this.paymentsService.payments$.next([...currentPayments, newPayment])
+
       this.newPaymentForm.reset();
     }
   }
@@ -37,6 +39,7 @@ export class NewPaymentFormComponent implements OnInit, AfterViewInit {
   handlerBlur(event): void{
     if(event.target.value.length===0) event.target.nextSibling.classList.remove("up")
   }
+  
   ngAfterViewInit(): void{
     this.payment.nativeElement.addEventListener('focus', this.handlerFocus);
     this.cost.nativeElement.addEventListener('focus', this.handlerFocus);

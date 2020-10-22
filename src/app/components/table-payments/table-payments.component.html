@@ -5,5 +5,13 @@
         <div class="cell cell__month" *ngFor="let month of months">{{ month }}</div>
         <div class="cell cell__delete">Удалить</div>
     </div>
-    <row-table [ngClass]="{odd: odd}" *ngFor="let payment of payments; let i = index; let odd = odd" [payment]="payment" [indexPayment]="i"></row-table>
+    <row-table 
+        [ngClass]="{odd: odd}" 
+        *ngFor="let payment of payments; let i = index; let odd = odd" 
+        [payment]="payment" 
+        [indexPayment]="i"
+        (changeMonths)="changeMonths($event)"
+        (removePayment)="removePayment($event)"
+
+    ></row-table>
 </div>

@@ -6,16 +6,19 @@ describe('PaymentsService', () => {
   let service: PaymentsService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({providers:[PaymentsService]});
     service = TestBed.inject(PaymentsService);
   });
 
-  it('should be created', () => {
+  it('should be created service', () => {
     expect(service).toBeTruthy();
   });
 
-  // it('should be 31 days if month 0', () => {
-  //   const result = service.
-  //   expect(service).toBeTruthy();
-  // });
+  it('should be total 62 if 1 payment and checked month with index 0 and cost 2', () => {
+    const newPayment = {name: "", cost: "2", months: [0]};
+    service.payments$.next([newPayment]);
+    let total = service.countTotal();
+
+    expect(total).toBe(62);
+  });
 });

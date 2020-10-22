@@ -10,7 +10,7 @@
     </div>
     <div class="form__cost">
         <label>
-            <input #cost type="cost" formControlName="cost">
+            <input #cost type="text" formControlName="cost">
             <span>Стоимость за день</span>
         </label>
         <div class="alert" *ngIf="newPaymentForm.controls['cost'].invalid && newPaymentForm.controls['cost'].touched">
