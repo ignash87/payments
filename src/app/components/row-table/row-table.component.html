@@ -1,0 +1,8 @@
+    <div class="row">
+        <div class="cell cell__name">{{payment.name}}</div>
+        <div class="cell cell__cost">{{payment.cost}}</div>
+        <div class="cell cell__month" *ngFor="let month of months; let i = index">
+            <input type="checkbox" [name]="indexPayment+'_'+i" (click)="checkMonth($event)">
+        </div>
+        <div class="cell cell__delete" (click)="removePayment()"><button>&#215;</button></div>
+    </div>

@@ -1,0 +1,58 @@
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd,
+button,
+input {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+body{
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  margin: 30px 150px;
+}
+
+input, button{
+  border: none;
+  outline: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+

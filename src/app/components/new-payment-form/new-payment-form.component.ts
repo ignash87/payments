@@ -1,0 +1,48 @@
+import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { PaymentsService } from 'src/app/services/payments.service';
+
+@Component({
+  selector: 'new-payment-form',
+  templateUrl: './new-payment-form.component.html',
+  styleUrls: ['./new-payment-form.component.css']
+})
+export class NewPaymentFormComponent implements OnInit, AfterViewInit {
+  @ViewChild('payment') public payment: ElementRef;
+  @ViewChild('cost') public cost: ElementRef;
+
+  newPaymentForm: FormGroup;
+
+  constructor(public paymentsService: PaymentsService) { 
+    this.newPaymentForm = new FormGroup({
+      'payment': new FormControl('', [Validators.required, Validators.minLength(1)]),
+      'cost': new FormControl('', [Validators.required, Validators.pattern('^[0-9.]{1,}$')])
+    })
+   }
+
+  ngOnInit(): void {
+  }
+
+  addPayment(): void{
+    if (this.newPaymentForm.valid) {
+      let value = this.newPaymentForm.value;
+      this.paymentsService.addToPayments(value);
+      this.newPaymentForm.reset();
+    }
+  }
+  handlerFocus(event): void{
+    event.target.nextSibling.classList.add("up")
+  }
+  handlerBlur(event): void{
+    if(event.target.value.length===0) event.target.nextSibling.classList.remove("up")
+  }
+  ngAfterViewInit(): void{
+    this.payment.nativeElement.addEventListener('focus', this.handlerFocus);
+    this.cost.nativeElement.addEventListener('focus', this.handlerFocus);
+    
+    this.payment.nativeElement.addEventListener('blur', this.handlerBlur);
+    this.cost.nativeElement.addEventListener('blur', this.handlerBlur);
+  }
+
+}

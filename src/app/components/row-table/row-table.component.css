@@ -1,0 +1,19 @@
+.row{
+    display: flex;
+}
+.row .cell{
+   border-top: none; 
+}
+.cell__delete button{
+    background-color: #49abdf;
+    width: 18px;
+    font-size: 1.1rem;
+    padding: 3;
+    border: 1px solid #49abdf;
+    border-radius: 9px;
+    height: 18px;
+    color: #fff;
+}
+.cell__delete button:hover{
+    color: #000;
+}

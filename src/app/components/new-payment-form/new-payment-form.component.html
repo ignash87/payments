@@ -1,0 +1,21 @@
+<form  [formGroup]="newPaymentForm">
+    <div class="form__payment">
+        <label >
+            <input #payment type="text"  formControlName="payment">
+            <span>Наименование платежа*</span>
+        </label>
+        <div class="alert" *ngIf="newPaymentForm.controls['payment'].invalid && newPaymentForm.controls['payment'].touched">
+            Должно быть заполнено
+        </div>
+    </div>
+    <div class="form__cost">
+        <label>
+            <input #cost type="cost" formControlName="cost">
+            <span>Стоимость за день</span>
+        </label>
+        <div class="alert" *ngIf="newPaymentForm.controls['cost'].invalid && newPaymentForm.controls['cost'].touched">
+            Должно быть число больше 0
+        </div>
+    </div>
+    <button type="button" class="button-blue" (click)="addPayment()" [disabled]="newPaymentForm.invalid">Добавить</button>
+</form>

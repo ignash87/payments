@@ -1,0 +1,9 @@
+<div class="table">
+    <div class="table__head">
+        <div class="cell cell__name">Наименование платежа</div>
+        <div class="cell cell__cost">Стоимость</div>
+        <div class="cell cell__month" *ngFor="let month of months">{{ month }}</div>
+        <div class="cell cell__delete">Удалить</div>
+    </div>
+    <row-table [ngClass]="{odd: odd}" *ngFor="let payment of payments; let i = index; let odd = odd" [payment]="payment" [indexPayment]="i"></row-table>
+</div>

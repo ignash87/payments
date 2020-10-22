@@ -1,0 +1,36 @@
+:host{
+    display: flex;
+}
+.table{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.cell {
+    border: 1px solid black;
+    padding: 10px 6px;
+    text-align: center;
+  }
+  .cell:not(:last-child){
+      border-right: none;
+  }
+
+.table__head{
+    background-color: #cccccc;
+    display: flex;
+}
+.cell__name{
+    min-width: 175px;
+}
+.cell__cost{
+    min-width: 85px;
+}
+.cell__month{
+    min-width: 30px;
+}
+.cell__delete{
+    min-width: 75px;
+}
+.odd{
+    background-color: #f2f2f2
+}
