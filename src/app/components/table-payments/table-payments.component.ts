@@ -31,7 +31,6 @@ export class TablePaymentsComponent implements OnInit{
   }
 
   removePayment(index){
-    console.log(this.payments)
     this.payments.splice(index,1)
     this.paymentsService.payments$.next(this.payments)
   }

@@ -23,27 +23,27 @@ export class NewPaymentFormComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   addPayment(): void{
-    if (this.newPaymentForm.valid) {
       const value = this.newPaymentForm.value;
       const currentPayments=this.paymentsService.payments$.getValue();
 
       const newPayment = {name: value.payment, cost: value.cost , months: []};
-      this.paymentsService.payments$.next([...currentPayments, newPayment])
+      this.paymentsService.payments$.next([...currentPayments, newPayment]);
+      document.querySelectorAll("[formControlName]").forEach(elem=>elem.nextElementSibling.classList.remove("up"))
 
       this.newPaymentForm.reset();
-    }
   }
+
   handlerFocus(event): void{
-    event.target.nextSibling.classList.add("up")
+    event.target.nextElementSibling.classList.add("up")
   }
+  
   handlerBlur(event): void{
-    if(event.target.value.length===0) event.target.nextSibling.classList.remove("up")
+    if(event.target.value.length===0) event.target.nextElementSibling.classList.remove("up")
   }
   
   ngAfterViewInit(): void{
     this.payment.nativeElement.addEventListener('focus', this.handlerFocus);
     this.cost.nativeElement.addEventListener('focus', this.handlerFocus);
-    
     this.payment.nativeElement.addEventListener('blur', this.handlerBlur);
     this.cost.nativeElement.addEventListener('blur', this.handlerBlur);
   }

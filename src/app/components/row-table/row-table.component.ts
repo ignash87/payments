@@ -34,7 +34,6 @@ export class RowTableComponent implements OnInit {
   }
 
   remove(): void{
-    console.log(this.indexPayment)
     this.removePayment.emit(this.indexPayment)
   }
 

@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TablePaymentsComponent } from './table-payments.component';
 import { PaymentsService } from 'src/app/services/payments.service';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
 describe('TablePaymentsComponent', () => {
@@ -12,7 +13,9 @@ describe('TablePaymentsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ TablePaymentsComponent ], 
-      providers: [PaymentsService]
+      providers: [PaymentsService],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
     })
     .compileComponents();
   });
