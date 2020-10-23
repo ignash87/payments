@@ -2,7 +2,10 @@
     display: flex;
 }
 .row .cell{
-   border-top: none; 
+    border-top: none; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .cell__delete button{
     background-color: #49abdf;

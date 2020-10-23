@@ -20,16 +20,16 @@
     display: flex;
 }
 .cell__name{
-    min-width: 175px;
+    width: 175px;
 }
 .cell__cost{
-    min-width: 85px;
+    width: 85px;
 }
 .cell__month{
-    min-width: 30px;
+    width: 30px;
 }
 .cell__delete{
-    min-width: 75px;
+    width: 75px;
 }
 .odd{
     background-color: #f2f2f2
