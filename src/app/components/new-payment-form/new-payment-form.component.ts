@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { PaymentsService } from 'src/app/services/payments.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class NewPaymentFormComponent implements OnInit, AfterViewInit {
   constructor(public paymentsService: PaymentsService) { 
     this.newPaymentForm = new FormGroup({
       'payment': new FormControl('', [Validators.required, Validators.minLength(1)]),
-      'cost': new FormControl('', [Validators.required, Validators.pattern('^[0-9.]{1,}$')])
+      'cost': new FormControl('', [costValidator()])
     })
    }
 
@@ -48,4 +48,12 @@ export class NewPaymentFormComponent implements OnInit, AfterViewInit {
     this.cost.nativeElement.addEventListener('blur', this.handlerBlur);
   }
 
+}
+
+function costValidator(): ValidatorFn{
+  return (control: AbstractControl): {[key: string]: boolean} | null => {
+    let costRgEx: RegExp = /^[0-9.]{1,}$/;
+    let valid = +control.value>0 && costRgEx.test(control.value);
+    return valid ? null : {cost: true};
+  };
 }
