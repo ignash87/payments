@@ -7,7 +7,7 @@ import { PaymentsService } from 'src/app/services/payments.service';
   templateUrl: './new-payment-form.component.html',
   styleUrls: ['./new-payment-form.component.css']
 })
-export class NewPaymentFormComponent implements OnInit, AfterViewInit{
+export class NewPaymentFormComponent implements OnInit{
   @ViewChildren('input') public inputs: QueryList<ElementRef>;
   newPaymentForm: FormGroup;
 
@@ -31,16 +31,12 @@ export class NewPaymentFormComponent implements OnInit, AfterViewInit{
       this.newPaymentForm.reset();
   }
 
-  handlerFocus(event): void{
-    this.renderer.addClass(this.renderer.nextSibling(event.target), "up")
+  handlerFocus(elem): void{
+    this.renderer.addClass(this.renderer.nextSibling(elem), "up")
   }
   
-  handlerBlur(event): void{
-    if(!event.target.value) this.renderer.removeClass(this.renderer.nextSibling(event.target), "up");
-  }
-
-  ngAfterViewInit(){
-    console.log(this.inputs);
+  handlerBlur(elem): void{
+    if(!elem.value) this.renderer.removeClass(this.renderer.nextSibling(elem), "up");
   }
 
 }
