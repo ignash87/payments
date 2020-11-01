@@ -1,7 +1,11 @@
 <form name="paymentForm"  [formGroup]="newPaymentForm">
     <div class="form__payment">
         <label >
-            <input #payment type="text"  formControlName="payment">
+            <input #input type="text"  
+            formControlName="payment" 
+            (focus)="handlerFocus($event)"
+            (blur)="handlerBlur($event)"
+            >
             <span>Наименование платежа*</span>
         </label>
         <div class="alert" *ngIf="newPaymentForm.controls['payment'].invalid && newPaymentForm.controls['payment'].touched">
@@ -10,7 +14,11 @@
     </div>
     <div class="form__cost">
         <label>
-            <input #cost type="text" formControlName="cost">
+            <input #input type="text" 
+            formControlName="cost" 
+            (focus)="handlerFocus($event.target)"
+            (blur)="handlerBlur($event.target)"
+            >
             <span>Стоимость за день</span>
         </label>
         <div class="alert" *ngIf="newPaymentForm.controls['cost'].invalid && newPaymentForm.controls['cost'].touched">

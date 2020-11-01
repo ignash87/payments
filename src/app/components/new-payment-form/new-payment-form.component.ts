@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { PaymentsService } from 'src/app/services/payments.service';
 
@@ -7,13 +7,11 @@ import { PaymentsService } from 'src/app/services/payments.service';
   templateUrl: './new-payment-form.component.html',
   styleUrls: ['./new-payment-form.component.css']
 })
-export class NewPaymentFormComponent implements OnInit, AfterViewInit {
-  @ViewChild('payment') public payment: ElementRef;
-  @ViewChild('cost') public cost: ElementRef;
-
+export class NewPaymentFormComponent implements OnInit, AfterViewInit{
+  @ViewChildren('input') public inputs: QueryList<ElementRef>;
   newPaymentForm: FormGroup;
 
-  constructor(public paymentsService: PaymentsService) { 
+  constructor(public paymentsService: PaymentsService, public renderer: Renderer2) { 
     this.newPaymentForm = new FormGroup({
       'payment': new FormControl('', [Validators.required, Validators.minLength(1)]),
       'cost': new FormControl('', [costValidator()])
@@ -28,24 +26,21 @@ export class NewPaymentFormComponent implements OnInit, AfterViewInit {
 
       const newPayment = {name: value.payment, cost: value.cost , months: []};
       this.paymentsService.payments$.next([...currentPayments, newPayment]);
-      document.querySelectorAll("[formControlName]").forEach(elem=>elem.nextElementSibling.classList.remove("up"))
+      this.inputs.forEach(input=> this.renderer.removeClass(this.renderer.nextSibling(input.nativeElement), "up"));
 
       this.newPaymentForm.reset();
   }
 
   handlerFocus(event): void{
-    event.target.nextElementSibling.classList.add("up")
+    this.renderer.addClass(this.renderer.nextSibling(event.target), "up")
   }
   
   handlerBlur(event): void{
-    if(event.target.value.length===0) event.target.nextElementSibling.classList.remove("up")
+    if(!event.target.value) this.renderer.removeClass(this.renderer.nextSibling(event.target), "up");
   }
-  
-  ngAfterViewInit(): void{
-    this.payment.nativeElement.addEventListener('focus', this.handlerFocus);
-    this.cost.nativeElement.addEventListener('focus', this.handlerFocus);
-    this.payment.nativeElement.addEventListener('blur', this.handlerBlur);
-    this.cost.nativeElement.addEventListener('blur', this.handlerBlur);
+
+  ngAfterViewInit(){
+    console.log(this.inputs);
   }
 
 }
